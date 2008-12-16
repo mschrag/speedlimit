@@ -1,0 +1,40 @@
+#!/bin/sh
+ACTION=$1
+shift
+
+if [[ "$ACTION" == "start" ]]; then
+	if [[ $# < 3 ]]; then
+		echo "Usage: $0 start [kps] [delay] [port1] <port2> .. <portn>"
+	fi
+	SPEED="$1Kbit/s"
+	shift
+	
+	DELAY="$1ms"
+	shift
+	
+	PIPE=100
+	while [[ -n "$1" ]]; do
+		PORT=$1
+		shift
+		/sbin/ipfw add pipe $PIPE ip from any $PORT to any out
+		/sbin/ipfw pipe $((PIPE ++)) config bw $SPEED queue 64Kbytes delay $DELAY
+		/sbin/ipfw add pipe $PIPE ip from any $PORT to any in
+		/sbin/ipfw pipe $((PIPE ++)) config bw $SPEED queue 64Kbytes delay $DELAY
+	done
+elif [[ "$ACTION" == "stop" ]]; then
+	if [[ $# < 2 ]]; then
+		echo "Usage: $0 stop [rule1] [rule2] <rule3> .. <rulen>"
+		exit 1
+	fi
+	
+	while [[ -n "$1" ]]; do
+		RULE=$1
+		shift
+		/sbin/ipfw delete $RULE
+	done
+elif [[ "$ACTION" == "list" ]]; then
+	/sbin/ipfw list $*
+else
+	echo "Usage: $0 start/stop/list"
+	exit 1
+fi
