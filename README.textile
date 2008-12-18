@@ -1,6 +1,6 @@
 h1. Speedlimit
 
-!SpeedLimit.png!
+<img style="width:160px; height:200px, float:right;" src="http://github.com/mschrag/speedlimit/raw/master/SpeedLimit.png" alt="sign" />
 
 SpeedLimit is a Leopard preference pane for limiting your network 
 bandwidth to one of a couple different speeds -- 768k DSL, Edge, 3G, 
