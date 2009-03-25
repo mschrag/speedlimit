@@ -14,14 +14,18 @@ NSString *const PORTS_KEY = @"ports";
 NSString *const DELAY_KEY = @"delay";
 NSString *const SPEED_KEY = @"speed";
 NSString *const RULES_KEY = @"rules";
+NSString *const HOSTS_KEY = @"hosts";
 
 @implementation SpeedLimitPref
 @synthesize speedsController;
 @synthesize portsController;
 @synthesize delay;
+@synthesize hosts;
 @synthesize speed;
 @synthesize rules;
 @synthesize slow;
+@synthesize speedLimitLabel;
+@synthesize startStopButton;
 
 - (NSString *)speedLimiterPath {
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -74,6 +78,10 @@ NSString *const RULES_KEY = @"rules";
 	if (rules) {
 		[prefs setObject:rules forKey:RULES_KEY];
 	}
+	if (self.hosts) {
+		[prefs setObject:self.hosts forKey:HOSTS_KEY];
+	}
+	
 	[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 	[[NSUserDefaults standardUserDefaults] setPersistentDomain:prefs forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 }
@@ -150,6 +158,14 @@ NSString *const RULES_KEY = @"rules";
 		self.delay = @"250";
 	}
 	
+	NSString *previousHosts = [prefs objectForKey:HOSTS_KEY];
+	if (previousHosts) {
+		self.hosts = previousHosts;
+	}
+	else {
+		self.hosts = @"";
+	}
+	
 	int previousSpeed = [[prefs objectForKey:SPEED_KEY] intValue];
 	if (previousSpeed) {
 		for (Speed *loopSpeed in [speedsController arrangedObjects]) {
@@ -191,9 +207,15 @@ NSString *const RULES_KEY = @"rules";
 -(void)dealloc {
 	[speedsController release];
 	[portsController release];
+	[speedLimitLabel release];
+	[startStopButton release];
+	
+	[hosts release];
 	[delay release];
 	[rules release];
+	
 	[self releaseAuthorization];
+	
 	[super dealloc];
 }
 
@@ -213,9 +235,11 @@ NSString *const RULES_KEY = @"rules";
 		if (self.speed && [ports count]) {
 			NSString *finalSpeed = [NSString stringWithFormat:@"%d", speed.speed];
 			NSString *finalDelay = (self.delay == nil || [self.delay length] == 0) ? 0 : self.delay;
+			NSString *finalHosts = (self.hosts == nil) ? @"" : self.hosts;
 			NSMutableArray *arguments = [NSMutableArray array];
 			[arguments addObject:finalSpeed];
 			[arguments addObject:finalDelay];
+			[arguments addObject:finalHosts];
 			[arguments addObjectsFromArray:ports];
 			self.rules = [self rulesForCommand:@"start" withArguments:arguments];
 			[self saveSettings];

@@ -11,30 +11,29 @@
 
 @interface SpeedLimitPref : NSPreferencePane {
 	NSString *delay;
+	NSString *hosts;
 	Speed *speed;
 	NSArray *rules;
 	BOOL slow;
-	IBOutlet NSArrayController *speedsController;
-	IBOutlet NSArrayController *portsController;
 	
-	IBOutlet NSButton *addPortButton;
-	IBOutlet NSButton *removePortButton;
-	IBOutlet NSTextField *speedLimitLabel;
-	IBOutlet NSTextField *portField;
-	IBOutlet NSTextField *delayField;
-	IBOutlet NSPopUpButton *speedField;
-	IBOutlet NSButton *startStopButton;
-	IBOutlet NSTableView *portsTable;
+	NSArrayController *speedsController;
+	NSArrayController *portsController;
+	NSTextField *speedLimitLabel;
+	NSButton *startStopButton;
 	
 	AuthorizationRef authorizationRef;
 }
 
 @property (readwrite, retain) NSString *delay;
+@property (readwrite, retain) NSString *hosts;
 @property (readwrite, retain) Speed *speed;
 @property (readwrite, retain) NSArray *rules;
-@property (readwrite, retain) NSArrayController *speedsController;
-@property (readwrite, retain) NSArrayController *portsController;
 @property (readwrite, assign) BOOL slow;
+
+@property (readwrite, retain) IBOutlet NSArrayController *speedsController;
+@property (readwrite, retain) IBOutlet NSArrayController *portsController;
+@property (readwrite, retain) IBOutlet NSTextField *speedLimitLabel;
+@property (readwrite, retain) IBOutlet NSButton *startStopButton;
 
 -(void) mainViewDidLoad;
 
