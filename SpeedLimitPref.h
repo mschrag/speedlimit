@@ -15,6 +15,8 @@
 	Speed *speed;
 	NSArray *rules;
 	BOOL slow;
+	double packetLossRatio;
+	BOOL packetLossErrorSuppress;
 	
 	NSArrayController *speedsController;
 	NSArrayController *portsController;
@@ -29,6 +31,8 @@
 @property (readwrite, retain) Speed *speed;
 @property (readwrite, retain) NSArray *rules;
 @property (readwrite, assign) BOOL slow;
+@property (readwrite, assign) double packetLossRatio;
+@property (readwrite, assign) BOOL packetLossErrorSuppress;
 
 @property (readwrite, retain) IBOutlet NSArrayController *speedsController;
 @property (readwrite, retain) IBOutlet NSArrayController *portsController;
