@@ -13,7 +13,7 @@
 @synthesize name;
 @synthesize speed;
 
--(id)initWithName:(NSString *)aName speed:(int)aSpeed {
+-(id)initWithName:(NSString *)aName speed:(NSInteger)aSpeed {
 	if (self = [super init]) {
 		self.name = aName;
 		self.speed = aSpeed;
@@ -27,10 +27,10 @@
 }
 
 -(NSString *)description {
-	return [NSString stringWithFormat:@"%dk (%@)", self.speed, self.name];
+	return [NSString stringWithFormat:@"%ldk (%@)", self.speed, self.name];
 }
 
-+(Speed *)speedWithName:(NSString *)aName speed:(int)aSpeed {
++(Speed *)speedWithName:(NSString *)aName speed:(NSInteger)aSpeed {
 	return [[[Speed alloc] initWithName:aName speed:aSpeed] autorelease];
 }
 @end

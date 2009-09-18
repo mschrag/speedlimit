@@ -47,7 +47,7 @@ NSString *const HOSTS_KEY = @"hosts";
 	
 	char *args[[finalArguments count] + 2];
 	args[0] = (char *)[command cStringUsingEncoding:NSUTF8StringEncoding];
-	int argNum = 0;
+	NSInteger argNum = 0;
 	for (NSString *argument in finalArguments) {
 		args[argNum ++] = (char *)[argument cStringUsingEncoding:NSUTF8StringEncoding];
 	}
@@ -73,7 +73,7 @@ NSString *const HOSTS_KEY = @"hosts";
 		[prefs setObject:self.delay forKey:DELAY_KEY];
 	}
 	if (speed) {
-		[prefs setObject:[NSNumber numberWithInt:speed.speed] forKey:SPEED_KEY];
+		[prefs setObject:[NSNumber numberWithInteger:speed.speed] forKey:SPEED_KEY];
 	}
 	if (rules) {
 		[prefs setObject:rules forKey:RULES_KEY];
@@ -91,12 +91,12 @@ NSString *const HOSTS_KEY = @"hosts";
 	NSArray *lines = [[self execute:command withArguments:arguments] componentsSeparatedByString:@"\n"];
 	for (NSString *line in lines) {
 		if ([line length] > 0) {
-			int ruleNumber = [line intValue];
+			NSInteger ruleNumber = [line integerValue];
 			if (!ruleNumber) {
 				[returnRules removeAllObjects];
 			}
 			else {
-				[returnRules addObject:[NSString stringWithFormat:@"%d", ruleNumber]];
+				[returnRules addObject:[NSString stringWithFormat:@"%ld", ruleNumber]];
 			}
 		}
 	}
@@ -109,7 +109,7 @@ NSString *const HOSTS_KEY = @"hosts";
 	[startStopButton setEnabled:TRUE];
 	if (self.slow) {
 		[startStopButton setTitle:@"Speed Up"];
-		[speedLimitLabel setStringValue:[NSString stringWithFormat:@"%d", speed.speed]];
+		[speedLimitLabel setStringValue:[NSString stringWithFormat:@"%ld", speed.speed]];
 	}
 	else {
 		[speedLimitLabel setStringValue:@"-"];
@@ -166,7 +166,7 @@ NSString *const HOSTS_KEY = @"hosts";
 		self.hosts = @"";
 	}
 	
-	int previousSpeed = [[prefs objectForKey:SPEED_KEY] intValue];
+	NSInteger previousSpeed = [[prefs objectForKey:SPEED_KEY] integerValue];
 	if (previousSpeed) {
 		for (Speed *loopSpeed in [speedsController arrangedObjects]) {
 			if (loopSpeed.speed == previousSpeed) {
@@ -233,7 +233,7 @@ NSString *const HOSTS_KEY = @"hosts";
 	if (!self.slow) {
 		NSArray *ports = [self.portsController arrangedObjects];
 		if (self.speed && [ports count]) {
-			NSString *finalSpeed = [NSString stringWithFormat:@"%d", speed.speed];
+			NSString *finalSpeed = [NSString stringWithFormat:@"%ld", speed.speed];
 			NSString *finalDelay = (self.delay == nil || [self.delay length] == 0) ? 0 : self.delay;
 			NSString *finalHosts = (self.hosts == nil) ? @"" : self.hosts;
 			NSMutableArray *arguments = [NSMutableArray array];
