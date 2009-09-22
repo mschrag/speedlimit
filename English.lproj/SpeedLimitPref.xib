@@ -70,7 +70,7 @@
 									<string>NeXT TIFF v4.0 pasteboard type</string>
 								</object>
 							</object>
-							<string key="NSFrame">{{14, 20}, {128, 160}}</string>
+							<string key="NSFrame">{{11, 16}, {136, 168}}</string>
 							<reference key="NSSuperview" ref="1037298196"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSImageCell" key="NSCell" id="271766915">
@@ -536,7 +536,7 @@
 						<object class="NSTextField" id="600768089">
 							<reference key="NSNextResponder" ref="1037298196"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{25, 40}, {109, 68}}</string>
+							<string key="NSFrame">{{22, 39}, {115, 68}}</string>
 							<reference key="NSSuperview" ref="1037298196"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="710289652">
@@ -935,11 +935,11 @@
 						<reference key="object" ref="1037298196"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="531226403"/>
 							<reference ref="362674527"/>
 							<reference ref="983542739"/>
 							<reference ref="981379416"/>
 							<reference ref="745740559"/>
+							<reference ref="531226403"/>
 							<reference ref="600768089"/>
 						</object>
 						<reference key="parent" ref="660800786"/>
