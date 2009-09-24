@@ -12,6 +12,7 @@
 		557302F20E68FAE200E88032 /* SpeedLimit.png in Resources */ = {isa = PBXBuildFile; fileRef = 557302F10E68FAE200E88032 /* SpeedLimit.png */; };
 		557302FB0E6903EC00E88032 /* SpeedLimiter in Resources */ = {isa = PBXBuildFile; fileRef = 557302F90E6903EC00E88032 /* SpeedLimiter */; };
 		557303000E69042800E88032 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557302FF0E69042800E88032 /* Security.framework */; };
+		88F7EB78106C07D700745902 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F7EB77106C07D700745902 /* SecurityInterface.framework */; };
 		8D202CEA0486D31800D8A456 /* SpeedLimit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* SpeedLimit_Prefix.pch */; };
 		8D202CEB0486D31800D8A456 /* SpeedLimitPref.h in Headers */ = {isa = PBXBuildFile; fileRef = F506C03C013D9D7901CA16C8 /* SpeedLimitPref.h */; };
 		8D202CED0486D31800D8A456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -33,6 +34,7 @@
 		557302F10E68FAE200E88032 /* SpeedLimit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedLimit.png; sourceTree = "<group>"; };
 		557302F90E6903EC00E88032 /* SpeedLimiter */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = SpeedLimiter; sourceTree = "<group>"; };
 		557302FF0E69042800E88032 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		88F7EB77106C07D700745902 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = /System/Library/Frameworks/SecurityInterface.framework; sourceTree = "<absolute>"; };
 		8D202CF70486D31800D8A456 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D202CF80486D31800D8A456 /* SpeedLimit.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedLimit.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
@@ -50,6 +52,7 @@
 				8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */,
 				8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */,
 				557303000E69042800E88032 /* Security.framework in Frameworks */,
+				88F7EB78106C07D700745902 /* SecurityInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +107,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				88F7EB77106C07D700745902 /* SecurityInterface.framework */,
 				557302FF0E69042800E88032 /* Security.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				F506C035013D953901CA16C8 /* PreferencePanes.framework */,

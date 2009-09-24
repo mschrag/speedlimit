@@ -7,14 +7,15 @@
 //
 
 #import "SpeedLimitPref.h"
-#include <Security/Authorization.h>
-#include <Security/AuthorizationTags.h>
+#import <Security/Authorization.h>
+#import <Security/AuthorizationTags.h>
 
 NSString *const PORTS_KEY = @"ports";
 NSString *const DELAY_KEY = @"delay";
 NSString *const SPEED_KEY = @"speed";
 NSString *const RULES_KEY = @"rules";
 NSString *const HOSTS_KEY = @"hosts";
+NSString *const AUTH_STATE_KEY = @"authstate";
 
 @implementation SpeedLimitPref
 @synthesize speedsController;
@@ -25,7 +26,14 @@ NSString *const HOSTS_KEY = @"hosts";
 @synthesize rules;
 @synthesize slow;
 @synthesize speedLimitLabel;
+@synthesize portsView;
+@synthesize hostsTextField;
+@synthesize delayTextField;
+@synthesize speedsPopUpButton;
+@synthesize addButton;
+@synthesize removeButton;
 @synthesize startStopButton;
+@synthesize authorizationView;
 
 - (NSString *)speedLimiterPath {
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -34,6 +42,7 @@ NSString *const HOSTS_KEY = @"hosts";
 }
 
 - (void) mainViewDidLoad {
+	
 	[speedsController addObject:[Speed speedWithName:@"DSL" speed:768]];
 	[speedsController addObject:[Speed speedWithName:@"3G" speed:384]];
 	[speedsController addObject:[Speed speedWithName:@"Edge" speed:64]];
@@ -82,6 +91,10 @@ NSString *const HOSTS_KEY = @"hosts";
 		[prefs setObject:self.hosts forKey:HOSTS_KEY];
 	}
 	
+	if (authorizationView) {
+		[prefs setObject:[NSNumber numberWithInteger:[authorizationView authorizationState]] forKey:AUTH_STATE_KEY];
+	}
+	
 	[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 	[[NSUserDefaults standardUserDefaults] setPersistentDomain:prefs forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 }
@@ -106,7 +119,6 @@ NSString *const HOSTS_KEY = @"hosts";
 - (void)updateStatus {
 	self.slow = [self.rules count];
 	
-	[startStopButton setEnabled:TRUE];
 	if (self.slow) {
 		[startStopButton setTitle:@"Speed Up"];
 		[speedLimitLabel setStringValue:[NSString stringWithFormat:@"%ld", speed.speed]];
@@ -175,48 +187,69 @@ NSString *const HOSTS_KEY = @"hosts";
 		}
 	}
 	
+	authorizationState = [[prefs objectForKey:AUTH_STATE_KEY] integerValue];
+	
 	self.rules = [prefs objectForKey:RULES_KEY];
-	self.slow = YES;
-	[startStopButton setEnabled:FALSE];
 	[speedLimitLabel setStringValue:@"-"];
-	[startStopButton setTitle:@"-"];
+	
+	if (authorizationState == SFAuthorizationViewLockedState)
+		[startStopButton setTitle:@"-"];
+	else
+		[startStopButton setTitle:@"Slow Down"];
 }
 
 - (void)didSelect {
-	OSStatus err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
-	if (err == errAuthorizationSuccess) {
+	
+	if (authorizationView) {
+	
 		const char *path = [[self speedLimiterPath] fileSystemRepresentation];
 		AuthorizationItem right = { kAuthorizationRightExecute, strlen(path), (char *)path, 0 };
 		AuthorizationRights rights = { 1, &right };
-		AuthorizationFlags flags = kAuthorizationFlagExtendRights | kAuthorizationFlagInteractionAllowed;
-		err = AuthorizationCopyRights(authorizationRef, &rights, kAuthorizationEmptyEnvironment, flags, NULL);
-		if (err == errAuthorizationSuccess) {
-			[self refreshRules];
-		}
+		
+		[authorizationView setDelegate:self];
+		[authorizationView setAuthorizationRights:&rights];
+		[authorizationView updateStatus:self];
 	}
+	
 }
 
 - (void)willUnselect {
 	[self saveSettings];
 }
 
-- (void)didUnselect {
-	[self releaseAuthorization];
-}
-
 -(void)dealloc {
 	[speedsController release];
 	[portsController release];
 	[speedLimitLabel release];
+	[portsView release];
+	[hostsTextField release];
+	[delayTextField release];
+	[speedsPopUpButton release];
+	[addButton release];
+	[removeButton release];
 	[startStopButton release];
 	
 	[hosts release];
 	[delay release];
 	[rules release];
 	
-	[self releaseAuthorization];
+	[authorizationView release];
 	
 	[super dealloc];
+}
+
+- (void)enableInterfaces:(BOOL)enable {
+
+	[portsView setEnabled:enable];
+	[hostsTextField setEnabled:enable];
+	[delayTextField setEnabled:enable];
+	[speedsPopUpButton setEnabled:enable];
+	[addButton setEnabled:enable];
+	[removeButton setEnabled:enable];
+	[startStopButton setEnabled:enable];
+	
+	if (!enable)
+		[startStopButton setTitle:@"-"];
 }
 
 -(IBAction)addPort:(id)sender {
@@ -261,4 +294,34 @@ NSString *const HOSTS_KEY = @"hosts";
 		[self updateStatus];
 	}
 }
+
+#pragma mark SFAuthorizationView delegate methods
+
+- (void)authorizationViewCreatedAuthorization:(SFAuthorizationView *)view {
+	
+	authorizationRef = [[view authorization] authorizationRef];
+}
+
+- (void)authorizationViewDidAuthorize:(SFAuthorizationView *)view {
+	
+	[self refreshRules];
+	
+	[self enableInterfaces:YES];
+}
+
+- (void)authorizationViewDidDeauthorize:(SFAuthorizationView *)view {
+	
+	[self enableInterfaces:NO];
+}
+
+- (void)authorizationViewReleasedAuthorization:(SFAuthorizationView *)view {
+	
+	[self releaseAuthorization];
+}
+
+- (BOOL)authorizationViewShouldDeauthorize:(SFAuthorizationView *)view {
+
+	return YES;
+}
+
 @end
