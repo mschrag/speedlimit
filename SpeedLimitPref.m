@@ -7,6 +7,7 @@
 //
 
 #import "SpeedLimitPref.h"
+#import "SLPort.h"
 #import <Security/Authorization.h>
 #import <Security/AuthorizationTags.h>
 
@@ -45,6 +46,7 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 
 - (void) mainViewDidLoad {
 	
+	[speedsController addObject:[Speed speedWithName:@"T1" speed:1572]];
 	[speedsController addObject:[Speed speedWithName:@"DSL" speed:768]];
 	[speedsController addObject:[Speed speedWithName:@"3G" speed:384]];
 	[speedsController addObject:[Speed speedWithName:@"Edge" speed:64]];
@@ -79,7 +81,11 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 - (void)saveSettings {
 	NSMutableDictionary *prefs = [NSMutableDictionary dictionary];
 	
-	[prefs setObject:[portsController arrangedObjects] forKey:PORTS_KEY];
+    NSMutableArray *ports = [NSMutableArray array];
+    for (SLPort *thePort in [portsController arrangedObjects]) {
+        [ports addObject:[[thePort port] stringValue]];
+    }
+    [prefs setObject:ports forKey:PORTS_KEY];
 	if (self.delay) {
 		[prefs setObject:self.delay forKey:DELAY_KEY];
 	}
@@ -152,15 +158,18 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 
 - (void)willSelect {
 	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
-
 	NSArray *previousPorts = [prefs objectForKey:PORTS_KEY];
 	[portsController removeObjects:[portsController arrangedObjects]];
 	if ([previousPorts count]) {
-		[portsController addObjects:previousPorts];
+        for (NSString *object in [previousPorts objectEnumerator]) {
+            SLPort *newPort = [[SLPort alloc] initWithPort:[object intValue]];
+            [portsController addObject:newPort];
+            [newPort release];
+        }
 	}
 	else {
-		[portsController addObject:@"80"];
-		[portsController addObject:@"443"];
+		[portsController addObject:[[[SLPort alloc] initWithPort:80] autorelease]];
+		[portsController addObject:[[[SLPort alloc] initWithPort:443] autorelease]];
 	}
 	[portsController setSelectedObjects:nil];
 	
@@ -201,7 +210,6 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 }
 
 - (void)didSelect {
-	
 	if (authorizationView) {
 	
 		const char *path = [[self speedLimiterPath] fileSystemRepresentation];
@@ -255,8 +263,9 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 }
 
 -(IBAction)addPort:(id)sender {
-	NSString *newPort = @"1000";
+    SLPort *newPort = [[SLPort alloc] initWithPort:1000];
 	[portsController addObject:newPort];
+    [newPort release];
 }
 
 -(IBAction)removePort:(id)sender {
@@ -267,7 +276,11 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 	[self refreshRules];
 	if (!self.slow) {
 		NSArray *ports = [self.portsController arrangedObjects];
-		if (self.speed && [ports count]) {
+        NSMutableArray *portStrings = [NSMutableArray array];
+        for (SLPort *thePort in ports) {
+            [portStrings addObject:[[thePort port] stringValue]];
+        }
+		if (self.speed && [portStrings count]) {
 			NSString *finalSpeed = [NSString stringWithFormat:@"%ld", speed.speed];
 			NSString *finalDelay = (self.delay == nil || [self.delay length] == 0) ? 0 : self.delay;
 			NSString *finalHosts = (self.hosts == nil) ? @"" : self.hosts;
@@ -279,7 +292,7 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 			[arguments addObject:finalPacketLossRatio];
 			[arguments addObject:finalPacketLossErrorSuppress];
 			[arguments addObject:finalHosts];
-			[arguments addObjectsFromArray:ports];
+			[arguments addObjectsFromArray:portStrings];
 			self.rules = [self rulesForCommand:@"start" withArguments:arguments];
 			[self saveSettings];
 			[self updateStatus];

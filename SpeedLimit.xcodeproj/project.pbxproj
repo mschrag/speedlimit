@@ -21,6 +21,8 @@
 		8D202CF10486D31800D8A456 /* SpeedLimitPref.m in Sources */ = {isa = PBXBuildFile; fileRef = F506C03D013D9D7901CA16C8 /* SpeedLimitPref.m */; };
 		8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
+		EC5DAEEE10C4928900E728BA /* SLPort.h in Headers */ = {isa = PBXBuildFile; fileRef = EC5DAEEC10C4928900E728BA /* SLPort.h */; };
+		EC5DAEEF10C4928900E728BA /* SLPort.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5DAEED10C4928900E728BA /* SLPort.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		88F7EB77106C07D700745902 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = /System/Library/Frameworks/SecurityInterface.framework; sourceTree = "<absolute>"; };
 		8D202CF70486D31800D8A456 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D202CF80486D31800D8A456 /* SpeedLimit.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedLimit.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC5DAEEC10C4928900E728BA /* SLPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPort.h; sourceTree = "<group>"; };
+		EC5DAEED10C4928900E728BA /* SLPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPort.m; sourceTree = "<group>"; };
 		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
 		F506C03C013D9D7901CA16C8 /* SpeedLimitPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitPref.h; sourceTree = "<group>"; };
 		F506C03D013D9D7901CA16C8 /* SpeedLimitPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitPref.m; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				F506C03D013D9D7901CA16C8 /* SpeedLimitPref.m */,
 				550EDEAD0E651B3B00A4C8A1 /* Speed.h */,
 				550EDEAE0E651B3B00A4C8A1 /* Speed.m */,
+				EC5DAEEC10C4928900E728BA /* SLPort.h */,
+				EC5DAEED10C4928900E728BA /* SLPort.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -150,6 +156,7 @@
 				8D202CEA0486D31800D8A456 /* SpeedLimit_Prefix.pch in Headers */,
 				8D202CEB0486D31800D8A456 /* SpeedLimitPref.h in Headers */,
 				550EDEAF0E651B3B00A4C8A1 /* Speed.h in Headers */,
+				EC5DAEEE10C4928900E728BA /* SLPort.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,7 +188,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "SpeedLimit" */;
+			buildConfigurationList = 1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "speedlimit" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
@@ -233,6 +240,7 @@
 			files = (
 				8D202CF10486D31800D8A456 /* SpeedLimitPref.m in Sources */,
 				550EDEB00E651B3B00A4C8A1 /* Speed.m in Sources */,
+				EC5DAEEF10C4928900E728BA /* SLPort.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +309,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -316,7 +323,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
@@ -332,7 +338,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "SpeedLimit" */ = {
+		1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "speedlimit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DBD214D08BA80EA00186707 /* Debug */,
