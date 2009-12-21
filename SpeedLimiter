@@ -4,13 +4,25 @@ shift
 
 if [[ "$ACTION" == "start" ]]; then
 	if [[ $# < 4 ]]; then
-		echo "Usage: $0 start [kps] [delay] [comma-separated hosts|\"any\"] [port1] <port2> .. <portn>"
+		echo "Usage: $0 start [kps] [delay] [plr] [plr-suppress] [comma-separated hosts|\"any\"] [port1] <port2> .. <portn>"
 	fi
 	SPEED="$1Kbit/s"
 	shift
 	
 	DELAY="$1ms"
 	shift
+	
+	PLR="$1"
+	shift
+	
+	PLR_SUPPRESS="$1"
+	shift
+	
+	if [[ "$PLR_SUPPRESS" == "yes" ]]; then
+		PLR_SUPPRESS="noerror"
+	else
+		PLR_SUPPRESS=""
+	fi
 	
 	HOSTS="${1//,/ }"
 	if [[ "$HOSTS" == "" ]]; then
@@ -27,10 +39,10 @@ if [[ "$ACTION" == "start" ]]; then
 			HOST=${HOST// /}
 			/sbin/ipfw add pipe $PIPE ip from $HOST $PORT to me
 			#/sbin/ipfw add pipe $PIPE ip from any $PORT to $HOST out
-			/sbin/ipfw pipe $((PIPE ++)) config bw $SPEED queue 64Kbytes delay $DELAY
+			/sbin/ipfw pipe $((PIPE ++)) config $PLR_SUPPRESS bw $SPEED queue 64Kbytes delay $DELAY plr $PLR
 			/sbin/ipfw add pipe $PIPE ip from me $PORT to $HOST
 			#/sbin/ipfw add pipe $PIPE ip from any $PORT to $HOST in
-			/sbin/ipfw pipe $((PIPE ++)) config bw $SPEED queue 64Kbytes delay $DELAY
+			/sbin/ipfw pipe $((PIPE ++)) config $PLR_SUPPRESS bw $SPEED queue 64Kbytes delay $DELAY plr $PLR
 		done
 	done
 elif [[ "$ACTION" == "stop" ]]; then

@@ -7,14 +7,16 @@
 //
 
 #import "SpeedLimitPref.h"
-#include <Security/Authorization.h>
-#include <Security/AuthorizationTags.h>
+#import "SLPort.h"
+#import <Security/Authorization.h>
+#import <Security/AuthorizationTags.h>
 
 NSString *const PORTS_KEY = @"ports";
 NSString *const DELAY_KEY = @"delay";
 NSString *const SPEED_KEY = @"speed";
 NSString *const RULES_KEY = @"rules";
 NSString *const HOSTS_KEY = @"hosts";
+NSString *const AUTH_STATE_KEY = @"authstate";
 
 @implementation SpeedLimitPref
 @synthesize speedsController;
@@ -24,8 +26,17 @@ NSString *const HOSTS_KEY = @"hosts";
 @synthesize speed;
 @synthesize rules;
 @synthesize slow;
+@synthesize packetLossRatio;
+@synthesize packetLossErrorSuppress;
 @synthesize speedLimitLabel;
+@synthesize portsView;
+@synthesize hostsTextField;
+@synthesize delayTextField;
+@synthesize speedsPopUpButton;
+@synthesize addButton;
+@synthesize removeButton;
 @synthesize startStopButton;
+@synthesize authorizationView;
 
 - (NSString *)speedLimiterPath {
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -34,6 +45,8 @@ NSString *const HOSTS_KEY = @"hosts";
 }
 
 - (void) mainViewDidLoad {
+	
+	[speedsController addObject:[Speed speedWithName:@"T1" speed:1572]];
 	[speedsController addObject:[Speed speedWithName:@"DSL" speed:768]];
 	[speedsController addObject:[Speed speedWithName:@"3G" speed:384]];
 	[speedsController addObject:[Speed speedWithName:@"Edge" speed:64]];
@@ -47,7 +60,7 @@ NSString *const HOSTS_KEY = @"hosts";
 	
 	char *args[[finalArguments count] + 2];
 	args[0] = (char *)[command cStringUsingEncoding:NSUTF8StringEncoding];
-	int argNum = 0;
+	NSInteger argNum = 0;
 	for (NSString *argument in finalArguments) {
 		args[argNum ++] = (char *)[argument cStringUsingEncoding:NSUTF8StringEncoding];
 	}
@@ -68,18 +81,26 @@ NSString *const HOSTS_KEY = @"hosts";
 - (void)saveSettings {
 	NSMutableDictionary *prefs = [NSMutableDictionary dictionary];
 	
-	[prefs setObject:[portsController arrangedObjects] forKey:PORTS_KEY];
+    NSMutableArray *ports = [NSMutableArray array];
+    for (SLPort *thePort in [portsController arrangedObjects]) {
+        [ports addObject:[[thePort port] stringValue]];
+    }
+    [prefs setObject:ports forKey:PORTS_KEY];
 	if (self.delay) {
 		[prefs setObject:self.delay forKey:DELAY_KEY];
 	}
 	if (speed) {
-		[prefs setObject:[NSNumber numberWithInt:speed.speed] forKey:SPEED_KEY];
+		[prefs setObject:[NSNumber numberWithInteger:speed.speed] forKey:SPEED_KEY];
 	}
 	if (rules) {
 		[prefs setObject:rules forKey:RULES_KEY];
 	}
 	if (self.hosts) {
 		[prefs setObject:self.hosts forKey:HOSTS_KEY];
+	}
+	
+	if (authorizationView) {
+		[prefs setObject:[NSNumber numberWithInteger:[authorizationView authorizationState]] forKey:AUTH_STATE_KEY];
 	}
 	
 	[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
@@ -91,12 +112,12 @@ NSString *const HOSTS_KEY = @"hosts";
 	NSArray *lines = [[self execute:command withArguments:arguments] componentsSeparatedByString:@"\n"];
 	for (NSString *line in lines) {
 		if ([line length] > 0) {
-			int ruleNumber = [line intValue];
+			NSInteger ruleNumber = [line integerValue];
 			if (!ruleNumber) {
 				[returnRules removeAllObjects];
 			}
 			else {
-				[returnRules addObject:[NSString stringWithFormat:@"%d", ruleNumber]];
+				[returnRules addObject:[NSString stringWithFormat:@"%ld", ruleNumber]];
 			}
 		}
 	}
@@ -106,10 +127,9 @@ NSString *const HOSTS_KEY = @"hosts";
 - (void)updateStatus {
 	self.slow = [self.rules count];
 	
-	[startStopButton setEnabled:TRUE];
 	if (self.slow) {
 		[startStopButton setTitle:@"Speed Up"];
-		[speedLimitLabel setStringValue:[NSString stringWithFormat:@"%d", speed.speed]];
+		[speedLimitLabel setStringValue:[NSString stringWithFormat:@"%ld", speed.speed]];
 	}
 	else {
 		[speedLimitLabel setStringValue:@"-"];
@@ -138,15 +158,18 @@ NSString *const HOSTS_KEY = @"hosts";
 
 - (void)willSelect {
 	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
-
 	NSArray *previousPorts = [prefs objectForKey:PORTS_KEY];
 	[portsController removeObjects:[portsController arrangedObjects]];
 	if ([previousPorts count]) {
-		[portsController addObjects:previousPorts];
+        for (NSString *object in [previousPorts objectEnumerator]) {
+            SLPort *newPort = [[SLPort alloc] initWithPort:[object intValue]];
+            [portsController addObject:newPort];
+            [newPort release];
+        }
 	}
 	else {
-		[portsController addObject:@"80"];
-		[portsController addObject:@"443"];
+		[portsController addObject:[[[SLPort alloc] initWithPort:80] autorelease]];
+		[portsController addObject:[[[SLPort alloc] initWithPort:443] autorelease]];
 	}
 	[portsController setSelectedObjects:nil];
 	
@@ -166,7 +189,7 @@ NSString *const HOSTS_KEY = @"hosts";
 		self.hosts = @"";
 	}
 	
-	int previousSpeed = [[prefs objectForKey:SPEED_KEY] intValue];
+	NSInteger previousSpeed = [[prefs objectForKey:SPEED_KEY] integerValue];
 	if (previousSpeed) {
 		for (Speed *loopSpeed in [speedsController arrangedObjects]) {
 			if (loopSpeed.speed == previousSpeed) {
@@ -175,53 +198,74 @@ NSString *const HOSTS_KEY = @"hosts";
 		}
 	}
 	
+	authorizationState = [[prefs objectForKey:AUTH_STATE_KEY] integerValue];
+	
 	self.rules = [prefs objectForKey:RULES_KEY];
-	self.slow = YES;
-	[startStopButton setEnabled:FALSE];
 	[speedLimitLabel setStringValue:@"-"];
-	[startStopButton setTitle:@"-"];
+	
+	if (authorizationState == SFAuthorizationViewLockedState)
+		[startStopButton setTitle:@"-"];
+	else
+		[startStopButton setTitle:@"Slow Down"];
 }
 
 - (void)didSelect {
-	OSStatus err = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
-	if (err == errAuthorizationSuccess) {
+	if (authorizationView) {
+	
 		const char *path = [[self speedLimiterPath] fileSystemRepresentation];
 		AuthorizationItem right = { kAuthorizationRightExecute, strlen(path), (char *)path, 0 };
 		AuthorizationRights rights = { 1, &right };
-		AuthorizationFlags flags = kAuthorizationFlagExtendRights | kAuthorizationFlagInteractionAllowed;
-		err = AuthorizationCopyRights(authorizationRef, &rights, kAuthorizationEmptyEnvironment, flags, NULL);
-		if (err == errAuthorizationSuccess) {
-			[self refreshRules];
-		}
+		
+		[authorizationView setDelegate:self];
+		[authorizationView setAuthorizationRights:&rights];
+		[authorizationView updateStatus:self];
 	}
+	
 }
 
 - (void)willUnselect {
 	[self saveSettings];
 }
 
-- (void)didUnselect {
-	[self releaseAuthorization];
-}
-
 -(void)dealloc {
 	[speedsController release];
 	[portsController release];
 	[speedLimitLabel release];
+	[portsView release];
+	[hostsTextField release];
+	[delayTextField release];
+	[speedsPopUpButton release];
+	[addButton release];
+	[removeButton release];
 	[startStopButton release];
 	
 	[hosts release];
 	[delay release];
 	[rules release];
 	
-	[self releaseAuthorization];
+	[authorizationView release];
 	
 	[super dealloc];
 }
 
+- (void)enableInterfaces:(BOOL)enable {
+
+	[portsView setEnabled:enable];
+	[hostsTextField setEnabled:enable];
+	[delayTextField setEnabled:enable];
+	[speedsPopUpButton setEnabled:enable];
+	[addButton setEnabled:enable];
+	[removeButton setEnabled:enable];
+	[startStopButton setEnabled:enable];
+	
+	if (!enable)
+		[startStopButton setTitle:@"-"];
+}
+
 -(IBAction)addPort:(id)sender {
-	NSString *newPort = @"1000";
+    SLPort *newPort = [[SLPort alloc] initWithPort:1000];
 	[portsController addObject:newPort];
+    [newPort release];
 }
 
 -(IBAction)removePort:(id)sender {
@@ -232,15 +276,23 @@ NSString *const HOSTS_KEY = @"hosts";
 	[self refreshRules];
 	if (!self.slow) {
 		NSArray *ports = [self.portsController arrangedObjects];
-		if (self.speed && [ports count]) {
-			NSString *finalSpeed = [NSString stringWithFormat:@"%d", speed.speed];
+        NSMutableArray *portStrings = [NSMutableArray array];
+        for (SLPort *thePort in ports) {
+            [portStrings addObject:[[thePort port] stringValue]];
+        }
+		if (self.speed && [portStrings count]) {
+			NSString *finalSpeed = [NSString stringWithFormat:@"%ld", speed.speed];
 			NSString *finalDelay = (self.delay == nil || [self.delay length] == 0) ? 0 : self.delay;
 			NSString *finalHosts = (self.hosts == nil) ? @"" : self.hosts;
+			NSString *finalPacketLossRatio = [[NSNumber numberWithDouble:self.packetLossRatio] stringValue];
+			NSString *finalPacketLossErrorSuppress = (self.packetLossErrorSuppress) ? @"yes" : @"no";
 			NSMutableArray *arguments = [NSMutableArray array];
 			[arguments addObject:finalSpeed];
 			[arguments addObject:finalDelay];
+			[arguments addObject:finalPacketLossRatio];
+			[arguments addObject:finalPacketLossErrorSuppress];
 			[arguments addObject:finalHosts];
-			[arguments addObjectsFromArray:ports];
+			[arguments addObjectsFromArray:portStrings];
 			self.rules = [self rulesForCommand:@"start" withArguments:arguments];
 			[self saveSettings];
 			[self updateStatus];
@@ -261,4 +313,34 @@ NSString *const HOSTS_KEY = @"hosts";
 		[self updateStatus];
 	}
 }
+
+#pragma mark SFAuthorizationView delegate methods
+
+- (void)authorizationViewCreatedAuthorization:(SFAuthorizationView *)view {
+	
+	authorizationRef = [[view authorization] authorizationRef];
+}
+
+- (void)authorizationViewDidAuthorize:(SFAuthorizationView *)view {
+	
+	[self refreshRules];
+	
+	[self enableInterfaces:YES];
+}
+
+- (void)authorizationViewDidDeauthorize:(SFAuthorizationView *)view {
+	
+	[self enableInterfaces:NO];
+}
+
+- (void)authorizationViewReleasedAuthorization:(SFAuthorizationView *)view {
+	
+	[self releaseAuthorization];
+}
+
+- (BOOL)authorizationViewShouldDeauthorize:(SFAuthorizationView *)view {
+
+	return YES;
+}
+
 @end

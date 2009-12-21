@@ -10,15 +10,15 @@
 
 
 @interface Speed : NSObject {
-	int speed;
+	NSInteger speed;
 	NSString *name;
 }
 
 @property (readwrite, retain) NSString *name;
-@property (readwrite, assign) int speed;
+@property (readwrite, assign) NSInteger speed;
 
--(id)initWithName:(NSString *)name speed:(int)speed;
+-(id)initWithName:(NSString *)name speed:(NSInteger)speed;
 
-+(Speed *)speedWithName:(NSString *)aName speed:(int)aSpeed;
++(Speed *)speedWithName:(NSString *)aName speed:(NSInteger)aSpeed;
 
 @end
