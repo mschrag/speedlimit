@@ -35,6 +35,8 @@
 		557302F10E68FAE200E88032 /* SpeedLimit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedLimit.png; sourceTree = "<group>"; };
 		557302F90E6903EC00E88032 /* SpeedLimiter */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = SpeedLimiter; sourceTree = "<group>"; };
 		557302FF0E69042800E88032 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		7D9011E3113EC9AB009ED3FC /* Speed Limit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speed Limit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D9011E5113EC9AC009ED3FC /* Speed Limit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Speed Limit-Info.plist"; sourceTree = "<group>"; };
 		88CC2645109BE8CF001F20AC /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		88CC2647109BE8CF001F20AC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SpeedLimitPref.xib; sourceTree = "<group>"; };
 		88F7EB77106C07D700745902 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = /System/Library/Frameworks/SecurityInterface.framework; sourceTree = "<absolute>"; };
@@ -49,6 +51,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7D9011E1113EC9AB009ED3FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D202CF20486D31800D8A456 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +80,7 @@
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
+				7D9011E5113EC9AC009ED3FC /* Speed Limit-Info.plist */,
 			);
 			name = SpeedLimit;
 			sourceTree = "<group>";
@@ -134,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				8D202CF80486D31800D8A456 /* SpeedLimit.prefPane */,
+				7D9011E3113EC9AB009ED3FC /* Speed Limit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +174,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		7D9011E2113EC9AB009ED3FC /* Speed Limit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D9011E8113EC9AC009ED3FC /* Build configuration list for PBXNativeTarget "Speed Limit" */;
+			buildPhases = (
+				7D9011DF113EC9AB009ED3FC /* Resources */,
+				7D9011E0113EC9AB009ED3FC /* Sources */,
+				7D9011E1113EC9AB009ED3FC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Speed Limit";
+			productName = "Speed Limit";
+			productReference = 7D9011E3113EC9AB009ED3FC /* Speed Limit.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D202CE80486D31800D8A456 /* SpeedLimit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DBD214808BA80EA00186707 /* Build configuration list for PBXNativeTarget "SpeedLimit" */;
@@ -204,11 +232,19 @@
 			projectRoot = "";
 			targets = (
 				8D202CE80486D31800D8A456 /* SpeedLimit */,
+				7D9011E2113EC9AB009ED3FC /* Speed Limit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7D9011DF113EC9AB009ED3FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D202CEC0486D31800D8A456 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +270,13 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7D9011E0113EC9AB009ED3FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D202CF00486D31800D8A456 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -326,6 +369,54 @@
 			};
 			name = Release;
 		};
+		7D9011E6113EC9AC009ED3FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Speed Limit-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Speed Limit";
+			};
+			name = Debug;
+		};
+		7D9011E7113EC9AC009ED3FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Speed Limit-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Speed Limit";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -343,6 +434,15 @@
 			buildConfigurations = (
 				1DBD214D08BA80EA00186707 /* Debug */,
 				1DBD214E08BA80EA00186707 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D9011E8113EC9AC009ED3FC /* Build configuration list for PBXNativeTarget "Speed Limit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D9011E6113EC9AC009ED3FC /* Debug */,
+				7D9011E7113EC9AC009ED3FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
