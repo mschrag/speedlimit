@@ -12,6 +12,20 @@
 		557302F20E68FAE200E88032 /* SpeedLimit.png in Resources */ = {isa = PBXBuildFile; fileRef = 557302F10E68FAE200E88032 /* SpeedLimit.png */; };
 		557302FB0E6903EC00E88032 /* SpeedLimiter in Resources */ = {isa = PBXBuildFile; fileRef = 557302F90E6903EC00E88032 /* SpeedLimiter */; };
 		557303000E69042800E88032 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557302FF0E69042800E88032 /* Security.framework */; };
+		7D4665A811454F63003FB200 /* SpeedLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4665A711454F63003FB200 /* SpeedLimiter.m */; };
+		7DD45A20114545AF00E7F445 /* SpeedLimiter in Resources */ = {isa = PBXBuildFile; fileRef = 557302F90E6903EC00E88032 /* SpeedLimiter */; };
+		7DE1D8791145319A00322374 /* SpeedLimitAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE1D8781145319A00322374 /* SpeedLimitAppDelegate.m */; };
+		7DE1D88E114532AA00322374 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE1D88D114532AA00322374 /* main.m */; };
+		7DE1D8AC1145341600322374 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1D8AB1145341600322374 /* MainMenu.xib */; };
+		7DE1D8C71145371900322374 /* SpeedLimitPref.tiff in Resources */ = {isa = PBXBuildFile; fileRef = F506C040013D9D8001CA16C8 /* SpeedLimitPref.tiff */; };
+		7DE1D9161145394700322374 /* SpeedLimitWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DE1D9151145394700322374 /* SpeedLimitWindow.xib */; };
+		7DE1D91C11453A1100322374 /* SpeedLimitWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE1D91B11453A1100322374 /* SpeedLimitWindowController.m */; };
+		7DE1D92411453C1800322374 /* Speed.m in Sources */ = {isa = PBXBuildFile; fileRef = 550EDEAE0E651B3B00A4C8A1 /* Speed.m */; };
+		7DE1D92611453C1800322374 /* SLPort.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5DAEED10C4928900E728BA /* SLPort.m */; };
+		7DE1D95611453D4900322374 /* SpeedLimit.png in Resources */ = {isa = PBXBuildFile; fileRef = 557302F10E68FAE200E88032 /* SpeedLimit.png */; };
+		7DE1DA8B11453F5E00322374 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		7DE1DA8C11453F6100322374 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F7EB77106C07D700745902 /* SecurityInterface.framework */; };
+		7DE1DA8D11453F6400322374 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557302FF0E69042800E88032 /* Security.framework */; };
 		88CC2648109BE8CF001F20AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 88CC2644109BE8CF001F20AC /* InfoPlist.strings */; };
 		88CC2649109BE8CF001F20AC /* SpeedLimitPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CC2646109BE8CF001F20AC /* SpeedLimitPref.xib */; };
 		88F7EB78106C07D700745902 /* SecurityInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F7EB77106C07D700745902 /* SecurityInterface.framework */; };
@@ -35,8 +49,17 @@
 		557302F10E68FAE200E88032 /* SpeedLimit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedLimit.png; sourceTree = "<group>"; };
 		557302F90E6903EC00E88032 /* SpeedLimiter */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = SpeedLimiter; sourceTree = "<group>"; };
 		557302FF0E69042800E88032 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		7D4665A611454F63003FB200 /* SpeedLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimiter.h; sourceTree = "<group>"; };
+		7D4665A711454F63003FB200 /* SpeedLimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimiter.m; sourceTree = "<group>"; };
 		7D9011E3113EC9AB009ED3FC /* Speed Limit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speed Limit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D9011E5113EC9AC009ED3FC /* Speed Limit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Speed Limit-Info.plist"; sourceTree = "<group>"; };
+		7DE1D8771145319A00322374 /* SpeedLimitAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitAppDelegate.h; sourceTree = "<group>"; };
+		7DE1D8781145319A00322374 /* SpeedLimitAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitAppDelegate.m; sourceTree = "<group>"; };
+		7DE1D88D114532AA00322374 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7DE1D8AB1145341600322374 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		7DE1D9151145394700322374 /* SpeedLimitWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeedLimitWindow.xib; sourceTree = "<group>"; };
+		7DE1D91A11453A1100322374 /* SpeedLimitWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitWindowController.h; sourceTree = "<group>"; };
+		7DE1D91B11453A1100322374 /* SpeedLimitWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitWindowController.m; sourceTree = "<group>"; };
 		88CC2645109BE8CF001F20AC /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		88CC2647109BE8CF001F20AC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SpeedLimitPref.xib; sourceTree = "<group>"; };
 		88F7EB77106C07D700745902 /* SecurityInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityInterface.framework; path = /System/Library/Frameworks/SecurityInterface.framework; sourceTree = "<absolute>"; };
@@ -55,6 +78,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE1DA8D11453F6400322374 /* Security.framework in Frameworks */,
+				7DE1DA8C11453F6100322374 /* SecurityInterface.framework in Frameworks */,
+				7DE1DA8B11453F5E00322374 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +129,8 @@
 				557302F10E68FAE200E88032 /* SpeedLimit.png */,
 				8D202CF70486D31800D8A456 /* Info.plist */,
 				F506C040013D9D8001CA16C8 /* SpeedLimitPref.tiff */,
+				7DE1D8AB1145341600322374 /* MainMenu.xib */,
+				7DE1D9151145394700322374 /* SpeedLimitWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -116,6 +144,12 @@
 				550EDEAE0E651B3B00A4C8A1 /* Speed.m */,
 				EC5DAEEC10C4928900E728BA /* SLPort.h */,
 				EC5DAEED10C4928900E728BA /* SLPort.m */,
+				7DE1D8771145319A00322374 /* SpeedLimitAppDelegate.h */,
+				7DE1D8781145319A00322374 /* SpeedLimitAppDelegate.m */,
+				7DE1D91A11453A1100322374 /* SpeedLimitWindowController.h */,
+				7DE1D91B11453A1100322374 /* SpeedLimitWindowController.m */,
+				7D4665A611454F63003FB200 /* SpeedLimiter.h */,
+				7D4665A711454F63003FB200 /* SpeedLimiter.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -152,6 +186,7 @@
 		32DBCFA10370C40200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7DE1D88D114532AA00322374 /* main.m */,
 				32DBCFA20370C41700C91783 /* SpeedLimit_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -242,6 +277,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DD45A20114545AF00E7F445 /* SpeedLimiter in Resources */,
+				7DE1D95611453D4900322374 /* SpeedLimit.png in Resources */,
+				7DE1D8C71145371900322374 /* SpeedLimitPref.tiff in Resources */,
+				7DE1D8AC1145341600322374 /* MainMenu.xib in Resources */,
+				7DE1D9161145394700322374 /* SpeedLimitWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +314,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE1D92411453C1800322374 /* Speed.m in Sources */,
+				7DE1D92611453C1800322374 /* SLPort.m in Sources */,
+				7DE1D8791145319A00322374 /* SpeedLimitAppDelegate.m in Sources */,
+				7DE1D88E114532AA00322374 /* main.m in Sources */,
+				7DE1D91C11453A1100322374 /* SpeedLimitWindowController.m in Sources */,
+				7D4665A811454F63003FB200 /* SpeedLimiter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

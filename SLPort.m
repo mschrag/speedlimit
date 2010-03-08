@@ -28,6 +28,10 @@
     return self;
 }
 
+-(NSString *)description {
+	return [self.port description];
+}
+
 - (void)dealloc
 {
     [port release];
