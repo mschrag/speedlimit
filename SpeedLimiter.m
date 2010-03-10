@@ -28,6 +28,9 @@ NSString *const RULES_KEY = @"rules";
 NSString *const HOSTS_KEY = @"hosts";
 NSString *const AUTH_STATE_KEY = @"authstate";
 
+NSString * const SpeedLimitWillSlowNotification = @"SpeedLimitWillSlowNotification";
+NSString * const SpeedLimitDidSlowNotification = @"SpeedLimitDidSlowNotification";
+
 @synthesize delay;
 @synthesize hosts;
 @synthesize currentSpeed;
@@ -121,6 +124,7 @@ NSString *const AUTH_STATE_KEY = @"authstate";
             [portStrings addObject:[[thePort port] stringValue]];
         }
 		if (self.currentSpeed && [portStrings count]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:SpeedLimitWillSlowNotification object:self];
 			NSString *finalSpeed = [NSString stringWithFormat:@"%ld", currentSpeed.speed];
 			NSString *finalDelay = (self.delay == nil || [self.delay length] == 0) ? 0 : self.delay;
 			NSString *finalHosts = (self.hosts == nil) ? @"" : self.hosts;
@@ -138,19 +142,24 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 			[self updateStatus];
 			if (![self.rules count]) {
 				[[NSAlert alertWithMessageText:@"Failed to set speed limit." defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-			}
+			}else{
+                [[NSNotificationCenter defaultCenter] postNotificationName:SpeedLimitDidSlowNotification object:self];
+            }
 		}
 		else {
 			[[NSAlert alertWithMessageText:@"You must select a speed and at least one port." defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
 		}
 	}
 	else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:SpeedLimitWillSlowNotification object:self];
 		if (self.rules) {
 			[self execute:@"stop" withArguments:self.rules];
+            
 		}
 		self.rules = nil;
 		[self saveSettings];
 		[self updateStatus];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SpeedLimitDidSlowNotification object:self];
 	}
 }
 

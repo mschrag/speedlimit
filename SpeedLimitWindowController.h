@@ -13,7 +13,7 @@
 @interface SpeedLimitWindowController : NSWindowController <NSWindowDelegate> {
     
     SpeedLimiter *speedLimiter;
-    
+    NSArrayController *portsController;
 	NSTextField *speedLimitLabel;
 	NSTableView *portsView;
 	NSTextField *hostsTextField;
@@ -25,6 +25,7 @@
 	
 	SFAuthorizationView *authorizationView;
 }
+@property (readwrite, retain) IBOutlet NSArrayController *portsController;
 @property (readwrite, retain) IBOutlet NSTextField *speedLimitLabel;
 @property (readwrite, retain) IBOutlet NSTableView *portsView;
 @property (readwrite, retain) IBOutlet NSTextField *hostsTextField;

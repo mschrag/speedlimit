@@ -18,11 +18,12 @@
     NSStatusItem *item;
     NSImage *image;
     SpeedLimiter *speedLimiter;
-    
+    NSMenuItem *currentItem;
     NSWindow *speedLimitWindow;
     
 }
 
 - (IBAction)showWindowAction:(id)sender;
+- (IBAction)quitAction:(id)sender;
 
 @end

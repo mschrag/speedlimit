@@ -20,6 +20,7 @@
 @implementation SpeedLimitWindowController
 
 @synthesize speedLimiter;
+@synthesize portsController;
 @synthesize speedLimitLabel;
 @synthesize portsView;
 @synthesize hostsTextField;
@@ -31,6 +32,7 @@
 @synthesize authorizationView;
 
 - (void)awakeFromNib{
+    [portsController setContent:[[self speedLimiter] ports]];
     if (authorizationView) {
         
 		const char *path = [[[self speedLimiter] speedLimiterPath] fileSystemRepresentation];
@@ -42,19 +44,13 @@
 		[authorizationView updateStatus:self];
 	}
     
-	[speedLimitLabel setStringValue:@"-"];
-	
-	if ([[self speedLimiter] authorizationState] == SFAuthorizationViewLockedState){
-        [self enableInterfaces:NO];
-		//[startStopButton setEnabled:NO];
-	}else{
-        [self enableInterfaces:YES];
-		[startStopButton setEnabled:YES];
-    }
-    
+	[self enableInterfaces:NO];
+
     if([[self speedLimiter] slow]){
+        [speedLimitLabel setStringValue:[NSString stringWithFormat:@"%ld", self.speedLimiter.currentSpeed.speed]];
         [startStopButton setTitle:@"Speed Up"];
     }else{
+        [speedLimitLabel setStringValue:@"-"];
         [startStopButton setTitle:@"Slow Down"];
     }
     [super awakeFromNib];
@@ -62,21 +58,28 @@
 
 -(IBAction)addPort:(id)sender {
     SLPort *newPort = [[SLPort alloc] initWithPort:1000];
-	[[self speedLimiter] addPort:newPort];
+	//[[self speedLimiter] addPort:newPort];
+    [portsController addObject:newPort];
     [newPort release];
 }
 
 -(IBAction)removePort:(id)sender {
+    //[[self speedLimiter] removePorts:[portsController selectedObjects]];
+    [portsController removeObjects:[portsController selectedObjects]];
 	//[[self speedLimiter] removePorts:[portsView selectedObjects]];
 }
 
 
 
 -(IBAction)toggle:(id)sender {
+    Speed *s = [[[self speedLimiter] speeds] objectAtIndex:[speedsPopUpButton indexOfSelectedItem]];
+    [[self speedLimiter] setCurrentSpeed:s];
     [[self speedLimiter] toggle];
     if([[self speedLimiter] slow]){
+        [speedLimitLabel setStringValue:[NSString stringWithFormat:@"%ld", self.speedLimiter.currentSpeed.speed]];
         [startStopButton setTitle:@"Speed Up"];
     }else{
+        [speedLimitLabel setStringValue:@"-"];
         [startStopButton setTitle:@"Slow Down"];
     }
 }

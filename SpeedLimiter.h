@@ -30,10 +30,11 @@
 - (void)releaseAuthorization;
 - (void)addPort:(SLPort *)port;
 - (void)removePorts:(NSArray *)thePorts;
+- (void)saveSettings;
 
 @property (readwrite, retain) NSString *delay;
 @property (readwrite, retain) NSString *hosts;
-@property (readonly, retain) Speed *currentSpeed;
+@property (readwrite, retain) Speed *currentSpeed;
 @property (readwrite, retain) NSArray *speeds;
 @property (readwrite, retain) NSArray *ports;
 @property (readwrite, retain) NSArray *rules;
@@ -44,3 +45,6 @@
 @property (readonly, assign) NSInteger authorizationState;
 
 @end
+
+extern NSString * const SpeedLimitWillSlowNotification;
+extern NSString * const SpeedLimitDidSlowNotification;

@@ -12,6 +12,8 @@
 		557302F20E68FAE200E88032 /* SpeedLimit.png in Resources */ = {isa = PBXBuildFile; fileRef = 557302F10E68FAE200E88032 /* SpeedLimit.png */; };
 		557302FB0E6903EC00E88032 /* SpeedLimiter in Resources */ = {isa = PBXBuildFile; fileRef = 557302F90E6903EC00E88032 /* SpeedLimiter */; };
 		557303000E69042800E88032 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557302FF0E69042800E88032 /* Security.framework */; };
+		7D14959F11481EF600F818D3 /* SpeedLimitMenuItem.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 7D14959E11481EF600F818D3 /* SpeedLimitMenuItem.tiff */; };
+		7D1495AA11481FC900F818D3 /* SpeedLimitMenuItemActive.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 7D1495A911481FC900F818D3 /* SpeedLimitMenuItemActive.tiff */; };
 		7D4665A811454F63003FB200 /* SpeedLimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4665A711454F63003FB200 /* SpeedLimiter.m */; };
 		7DD45A20114545AF00E7F445 /* SpeedLimiter in Resources */ = {isa = PBXBuildFile; fileRef = 557302F90E6903EC00E88032 /* SpeedLimiter */; };
 		7DE1D8791145319A00322374 /* SpeedLimitAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE1D8781145319A00322374 /* SpeedLimitAppDelegate.m */; };
@@ -49,6 +51,8 @@
 		557302F10E68FAE200E88032 /* SpeedLimit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedLimit.png; sourceTree = "<group>"; };
 		557302F90E6903EC00E88032 /* SpeedLimiter */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = SpeedLimiter; sourceTree = "<group>"; };
 		557302FF0E69042800E88032 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		7D14959E11481EF600F818D3 /* SpeedLimitMenuItem.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SpeedLimitMenuItem.tiff; sourceTree = "<group>"; };
+		7D1495A911481FC900F818D3 /* SpeedLimitMenuItemActive.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SpeedLimitMenuItemActive.tiff; sourceTree = "<group>"; };
 		7D4665A611454F63003FB200 /* SpeedLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimiter.h; sourceTree = "<group>"; };
 		7D4665A711454F63003FB200 /* SpeedLimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimiter.m; sourceTree = "<group>"; };
 		7D9011E3113EC9AB009ED3FC /* Speed Limit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speed Limit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +127,8 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7D1495A911481FC900F818D3 /* SpeedLimitMenuItemActive.tiff */,
+				7D14959E11481EF600F818D3 /* SpeedLimitMenuItem.tiff */,
 				88CC2644109BE8CF001F20AC /* InfoPlist.strings */,
 				88CC2646109BE8CF001F20AC /* SpeedLimitPref.xib */,
 				557302F90E6903EC00E88032 /* SpeedLimiter */,
@@ -282,6 +288,8 @@
 				7DE1D8C71145371900322374 /* SpeedLimitPref.tiff in Resources */,
 				7DE1D8AC1145341600322374 /* MainMenu.xib in Resources */,
 				7DE1D9161145394700322374 /* SpeedLimitWindow.xib in Resources */,
+				7D14959F11481EF600F818D3 /* SpeedLimitMenuItem.tiff in Resources */,
+				7D1495AA11481FC900F818D3 /* SpeedLimitMenuItemActive.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

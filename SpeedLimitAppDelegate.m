@@ -9,6 +9,11 @@
 #import "SpeedLimitAppDelegate.h"
 #import "SpeedLimitWindowController.h"
 
+@interface SpeedLimitAppDelegate ()
+
+- (void)setMenuItemImageForSpeedLimiter:(SpeedLimiter *)aSpeedLimiter;
+
+@end
 
 @implementation SpeedLimitAppDelegate
 
@@ -20,13 +25,11 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification{
     speedLimiter = [[SpeedLimiter alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(speedLimiterSlowChanged:) name:SpeedLimitDidSlowNotification object:speedLimiter];
 	item = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength] retain];
     
-    NSBundle *bundle = [NSBundle mainBundle];
-    
-    image = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"SpeedLimitPref" ofType:@"tiff"]];
-    
-    [item setImage:image];
+    [self setMenuItemImageForSpeedLimiter:speedLimiter];
+   
     [item setMenu:statusMenu];
     [item setToolTip:@"Speed Limit"];
     [item setHighlightMode:YES];
@@ -40,6 +43,21 @@
     [super dealloc];
 }
 
+- (void)speedLimiterSlowChanged:(NSNotification *)aNotification{
+    SpeedLimiter *aSpeedLimiter = (SpeedLimiter *)[aNotification object];
+    [self setMenuItemImageForSpeedLimiter:aSpeedLimiter];
+}
+
+- (void)setMenuItemImageForSpeedLimiter:(SpeedLimiter *)aSpeedLimiter{
+    NSBundle *bundle = [NSBundle mainBundle];
+    if([aSpeedLimiter slow]){
+        image = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"SpeedLimitMenuItemActive" ofType:@"tiff"]];
+    }else{
+        image = [[NSImage alloc] initWithContentsOfFile:[bundle pathForResource:@"SpeedLimitMenuItem" ofType:@"tiff"]];
+    }
+    [item setImage:image];
+}
+
 - (IBAction)showWindowAction:(id)sender{
     [NSApp activateIgnoringOtherApps:YES];
     if(speedLimitWindow == nil){
@@ -49,6 +67,11 @@
     }
     [speedLimitWindow makeKeyAndOrderFront:NSApp];
     
+}
+
+- (IBAction)quitAction:(id)sender{
+    [speedLimiter saveSettings];
+    [NSApp terminate:sender];
 }
 
 @end

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="51"/>
+			<integer value="41"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -624,6 +624,20 @@
 			<object class="NSUserDefaultsController" id="634372619">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
+			<object class="NSArrayController" id="71456045">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>port</string>
+					<string>selectionIndexes</string>
+				</object>
+				<bool key="NSEditable">YES</bool>
+				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
+				<bool key="NSAvoidsEmptySelection">YES</bool>
+				<bool key="NSPreservesSelection">YES</bool>
+				<bool key="NSSelectsInsertedObjects">YES</bool>
+				<bool key="NSFilterRestrictsInsertion">YES</bool>
+				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -718,22 +732,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">addPort:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="198875317"/>
-					</object>
-					<int key="connectionID">123</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">removePort:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="313458996"/>
-					</object>
-					<int key="connectionID">124</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggle:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="696339140"/>
@@ -790,131 +788,76 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="603948818"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="603948818"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">164</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="625184490"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="625184490"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">166</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="263440061"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="263440061"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">168</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="696339140"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="696339140"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">171</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="877813315"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="877813315"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">174</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="198875317"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="198875317"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">180</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: speedLimiter.slow</string>
-						<reference key="source" ref="313458996"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="313458996"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">enabled: speedLimiter.slow</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">speedLimiter.slow</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">183</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: speedLimiter.ports</string>
+						<string key="label">value: arrangedObjects.port</string>
 						<reference key="source" ref="746665992"/>
-						<reference key="destination" ref="1001"/>
+						<reference key="destination" ref="71456045"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="746665992"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: speedLimiter.ports</string>
+							<reference key="NSDestination" ref="71456045"/>
+							<string key="NSLabel">value: arrangedObjects.port</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">speedLimiter.ports</string>
+							<string key="NSKeyPath">arrangedObjects.port</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">186</int>
+					<int key="connectionID">195</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">content: arrangedObjects</string>
+						<reference key="source" ref="877813315"/>
+						<reference key="destination" ref="71456045"/>
+						<object class="NSNibBindingConnector" key="connector" id="78141046">
+							<reference key="NSSource" ref="877813315"/>
+							<reference key="NSDestination" ref="71456045"/>
+							<string key="NSLabel">content: arrangedObjects</string>
+							<string key="NSBinding">content</string>
+							<string key="NSKeyPath">arrangedObjects</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">196</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectionIndexes: selectionIndexes</string>
+						<reference key="source" ref="877813315"/>
+						<reference key="destination" ref="71456045"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="877813315"/>
+							<reference key="NSDestination" ref="71456045"/>
+							<string key="NSLabel">selectionIndexes: selectionIndexes</string>
+							<string key="NSBinding">selectionIndexes</string>
+							<string key="NSKeyPath">selectionIndexes</string>
+							<reference key="NSPreviousConnector" ref="78141046"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">200</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">portsController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="71456045"/>
+					</object>
+					<int key="connectionID">201</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addPort:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="198875317"/>
+					</object>
+					<int key="connectionID">202</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removePort:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="313458996"/>
+					</object>
+					<int key="connectionID">203</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1236,6 +1179,11 @@
 						<reference key="object" ref="634372619"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">191</int>
+						<reference key="object" ref="71456045"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1248,6 +1196,7 @@
 					<string>1.NSWindowTemplate.visibleAtLaunch</string>
 					<string>1.WindowOrigin</string>
 					<string>1.editorWindowContentRectSynchronizationRect</string>
+					<string>191.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>39.IBPluginDependency</string>
 					<string>40.IBPluginDependency</string>
@@ -1290,12 +1239,13 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{329, 789}, {680, 240}}</string>
+					<string>{{259, 551}, {680, 240}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{329, 789}, {680, 240}}</string>
+					<string>{{259, 551}, {680, 240}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1353,7 +1303,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">186</int>
+			<int key="maxID">203</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1384,6 +1334,7 @@
 							<string>authorizationView</string>
 							<string>delayTextField</string>
 							<string>hostsTextField</string>
+							<string>portsController</string>
 							<string>portsView</string>
 							<string>removeButton</string>
 							<string>speedLimitLabel</string>
@@ -1396,6 +1347,7 @@
 							<string>SFAuthorizationView</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
+							<string>NSArrayController</string>
 							<string>NSTableView</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
@@ -1460,6 +1412,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSUserInterfaceItemSearching.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSArrayController</string>
+					<string key="superclassName">NSObjectController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSArrayController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -1829,6 +1789,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">SecurityInterface.framework/Headers/SFChooseIdentityPanel.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObjectController</string>
+					<string key="superclassName">NSController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSObjectController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
