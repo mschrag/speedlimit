@@ -3,7 +3,7 @@ ACTION=$1
 shift
 
 if [[ "$ACTION" == "start" ]]; then
-	if [[ $# < 4 ]]; then
+	if [[ $# -lt 4 ]]; then
 		echo "Usage: $0 start [kps] [delay] [plr] [plr-suppress] [comma-separated hosts|\"any\"] [port1] <port2> .. <portn>"
 	fi
 	SPEED="$1Kbit/s"
@@ -46,7 +46,7 @@ if [[ "$ACTION" == "start" ]]; then
 		done
 	done
 elif [[ "$ACTION" == "stop" ]]; then
-	if [[ $# < 2 ]]; then
+	if [[ $# -lt 2 ]]; then
 		echo "Usage: $0 stop [rule1] [rule2] <rule3> .. <rulen>"
 		exit 1
 	fi
