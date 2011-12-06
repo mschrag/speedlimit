@@ -32,10 +32,12 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 @synthesize portsView;
 @synthesize hostsTextField;
 @synthesize delayTextField;
+@synthesize showIpfwOutputTextView;
 @synthesize speedsPopUpButton;
 @synthesize addButton;
 @synthesize removeButton;
 @synthesize startStopButton;
+@synthesize showIpfwOutputButton;
 @synthesize authorizationView;
 
 - (NSString *)speedLimiterPath {
@@ -53,6 +55,45 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 	[speedsController addObject:[Speed speedWithName:@"Dialup" speed:48]];
 }
 
+- (void)populateIpfwOutput {
+    FILE *ipfwPipe;
+    NSString *ipfwList = nil;
+	NSString *ipfwPipeList = nil;
+    NSMutableString *results = [NSMutableString string];
+    char *ipfwListArgs[2];
+    char *ipfwPipeListArgs[3];
+    
+    //Run command /sbin/ipfw list and capture the results;
+	ipfwListArgs[0] = (char *)[@"list" cStringUsingEncoding:NSUTF8StringEncoding];
+    ipfwListArgs[1] = NULL;
+	OSStatus listErr = AuthorizationExecuteWithPrivileges(authorizationRef, [@"/sbin/ipfw" fileSystemRepresentation], 0, ipfwListArgs, &ipfwPipe);
+	if (listErr == errAuthorizationSuccess) {
+		NSFileHandle *ipfwPipeHandle = [[NSFileHandle alloc] initWithFileDescriptor:fileno(ipfwPipe)];
+		ipfwList = [[NSString alloc] initWithData:[ipfwPipeHandle readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+		// NSLog(@"SpeedLimiter output = %@", ipfwPipeStr);
+	}
+	[results appendString:@"[Results for: '/sbin/ipfw list']\n------------------------------\n"];
+    [results appendString:ipfwList];
+    
+    //Run command /sbin/ipfw pipe list and capture the results;
+    ipfwPipeListArgs[0] = (char *)[@"pipe" cStringUsingEncoding:NSUTF8StringEncoding];
+    ipfwPipeListArgs[1] = (char *)[@"list" cStringUsingEncoding:NSUTF8StringEncoding];
+    ipfwPipeListArgs[2] = NULL;
+	OSStatus pipeListErr = AuthorizationExecuteWithPrivileges(authorizationRef, [@"/sbin/ipfw" fileSystemRepresentation], 0, ipfwPipeListArgs, &ipfwPipe);
+	if (pipeListErr == errAuthorizationSuccess) {
+		NSFileHandle *ipfwPipeHandle = [[NSFileHandle alloc] initWithFileDescriptor:fileno(ipfwPipe)];
+		ipfwPipeList = [[NSString alloc] initWithData:[ipfwPipeHandle readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+		// NSLog(@"SpeedLimiter output = %@", ipfwPipeStr);
+	}
+	[results appendString:@"\n\n[Results for: '/sbin/ipfw pipe list']\n------------------------------\n"];
+    [results appendString:ipfwPipeList];
+    
+    [showIpfwOutputTextView setString:results];
+    
+    [ipfwList autorelease];
+    [ipfwPipeList autorelease];
+    
+}
 - (NSString *)execute:(NSString *)command withArguments:(NSArray *)arguments {
 	NSMutableArray *finalArguments = [NSMutableArray array];
 	[finalArguments addObject:command];
@@ -74,7 +115,7 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 		ipfwPipeStr = [[NSString alloc] initWithData:[ipfwPipeHandle readDataToEndOfFile] encoding:NSUTF8StringEncoding];
 		// NSLog(@"SpeedLimiter output = %@", ipfwPipeStr);
 	}
-	
+	[self populateIpfwOutput];
 	return [ipfwPipeStr autorelease];
 }
 
@@ -257,6 +298,8 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 	[addButton setEnabled:enable];
 	[removeButton setEnabled:enable];
 	[startStopButton setEnabled:enable];
+    [showIpfwOutputButton setEnabled:enable];
+
 	
 	if (!enable)
 		[startStopButton setTitle:@"-"];
@@ -313,6 +356,11 @@ NSString *const AUTH_STATE_KEY = @"authstate";
 		[self updateStatus];
 	}
 }
+
+- (IBAction)showIpfwOutput:(id)sender {
+    [self populateIpfwOutput];
+}
+
 
 #pragma mark SFAuthorizationView delegate methods
 

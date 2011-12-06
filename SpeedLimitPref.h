@@ -25,12 +25,15 @@
 	NSTableView *portsView;
 	NSTextField *hostsTextField;
 	NSTextField *delayTextField;
+    NSTextView *showIpfwOutputTextView;
 	NSPopUpButton *speedsPopUpButton;
 	NSButton *addButton;
 	NSButton *removeButton;
 	NSButton *startStopButton;
-	
-	AuthorizationRef authorizationRef;
+    NSButton *showIpfwOutputButton;
+    
+    
+    AuthorizationRef authorizationRef;
 	
 	NSInteger authorizationState;
 	SFAuthorizationView *authorizationView;
@@ -50,10 +53,12 @@
 @property (readwrite, retain) IBOutlet NSTableView *portsView;
 @property (readwrite, retain) IBOutlet NSTextField *hostsTextField;
 @property (readwrite, retain) IBOutlet NSTextField *delayTextField;
+@property (readwrite, retain) IBOutlet NSTextView *showIpfwOutputTextView;
 @property (readwrite, retain) IBOutlet NSPopUpButton *speedsPopUpButton;
 @property (readwrite, retain) IBOutlet NSButton *addButton;
 @property (readwrite, retain) IBOutlet NSButton *removeButton;
 @property (readwrite, retain) IBOutlet NSButton *startStopButton;
+@property (readwrite, retain) IBOutlet NSButton *showIpfwOutputButton;
 @property (readwrite, retain) IBOutlet SFAuthorizationView *authorizationView;
 
 -(void) mainViewDidLoad;
@@ -61,5 +66,7 @@
 -(IBAction)addPort:(id)sender;
 -(IBAction)removePort:(id)sender;
 -(IBAction)toggle:(id)sender;
+-(IBAction)showIpfwOutput:(id)sender;
+
 
 @end
