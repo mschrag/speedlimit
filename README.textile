@@ -1,3 +1,5 @@
+h1. I am no longer able to maintain this project. Please feel free to fork and take ownership.
+
 h1. Speedlimit
 
 <img width="160" height="200" src="https://github.com/mschrag/speedlimit/raw/master/SpeedLimit.png" alt="sign" />
