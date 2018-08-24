@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmschrag%2Fspeedlimit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmschrag%2Fspeedlimit?ref=badge_shield)
+
 h1. I am no longer able to maintain this project. Please feel free to fork and take ownership.
 
 h1. Speedlimit
@@ -17,3 +19,7 @@ resulting build product .prefPane.
 h2. Download
 
 The binary is now available on <a href="http://mschrag.github.com">my github page</a>.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmschrag%2Fspeedlimit.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmschrag%2Fspeedlimit?ref=badge_large)
